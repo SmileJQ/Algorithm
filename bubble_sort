@@ -1,0 +1,28 @@
+from datetime import datetime
+import random
+
+def run_time(bubble_sort):
+      def inner():
+          start = datetime.now()
+          print('--------开始运行程序，运行开始时间-------:\n',start)
+          bubble_sort()
+          end = datetime.now()
+          print('----------程序运行结束，结束时间---------:\n',end)
+          print('----------程序花费总时间:---------\n',end - start)
+      return inner
+
+@run_time
+def bubble_sort():
+    data = list(range(100))
+    random.shuffle(data)
+    print('------排序前----------:\n',data)
+    for k in range(10000):
+        random.shuffle(data)
+        for i in range(len(data)-1):
+            for j in range(len(data)-1-i):#每次比较都找出一个极值放到最后
+                if data[j] > data[j+1]:#所以上面的range范围每次都要-1 （这样更加优化）
+                    data[j] ,data[j + 1] = data[j+1] , data[j]
+    print('-----------排序后----------\n',data)
+
+
+bubble_sort()
