@@ -24,5 +24,4 @@ def bubble_sort():
                     data[j] ,data[j + 1] = data[j+1] , data[j]
     print('-----------排序后----------\n',data)
 
-
 bubble_sort()
