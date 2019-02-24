@@ -1,0 +1,30 @@
+import re
+import requests
+
+def spider():
+    url = 'http://image.baidu.com/search/index?tn=baiduimage&word=%E7%BE%8E%E5%A5%B3%E5%9B%BE%E7%89%87'
+    User_Agent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36"
+    #添加请求头
+    headers = {
+    "User-Agent": User_Agent,
+    'Referer':url
+    }
+
+    res = requests.get(url).content.decode()
+
+    #匹配图片url
+    img_urls = re.findall(r'"thumbURL":"(.*?)"',res,re.S)
+    i = 1 #用于判断第几章图片
+    for img_url in img_urls:
+         #匹配图片的名称
+         title = re.findall(r'u=[0-9]*,[0-9]*', img_url, re.S)
+
+         resp = requests.get(img_url,headers=headers).content
+         print('正在下载第{}张图片'.format(i))
+         with open('D:\spider_meitu_2\{}.jpg'.format(title[0]),'wb') as f:
+             f.write(resp)
+         i+=1
+
+if __name__ == '__main__':
+    spider()
+
