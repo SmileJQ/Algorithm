@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+import random
+
+
+def insertion_sort(data,n):
+    #优化版插入排序
+    for i in range(1,n):
+        j = i
+        while j > 0:
+            if data[j] < data[j-1]:
+                data[j] , data[j-1] = data[j-1] , data[j]
+                j -= 1           
+            else:
+                break
+        
+    print('排序后的列表：')
+    print(data)
+
+if __name__ == '__main__':
+    li = [i for i in range(21)]
+    random.shuffle(li)
+    print('排序前的数据')
+    print(li)
+    n = len(li)
+    insertion_sort(li,n)
+    
