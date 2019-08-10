@@ -1,0 +1,39 @@
+import random
+
+
+def quick_sort(data,first,last):
+    
+    if first >= last:
+        return
+    mid_value = data[first]
+    low = first
+    high = last
+    
+    while low < high:
+        while low < high and data[high] >= mid_value:
+            high -= 1
+        data[low] = data[high]
+        
+        while low < high and data[low] < mid_value:
+            low += 1
+        data[high] = data[low]
+    
+    #从上面的循环退出以后，表示low==high 
+    #然后需要把mid_value赋给data[low]，确定第一个中间值    
+    data[low] = mid_value
+    
+    #对low左边继续排序 
+    quick_sort(data,first,low-1)
+    #对low右边继续排序
+    quick_sort(data,low+1,last)
+        
+    print('排序后的数据','\n',data)
+
+if __name__ == '__main__':
+    li = [i for i in range(21)]
+    random.shuffle(li)
+    print('排序前的数据','\n',li)
+    
+    n = len(li)
+    quick_sort(li,0,n-1)
+    
